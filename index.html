@@ -16,9 +16,24 @@
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.4";
+        $scope.version = "v2.5";
 
-		// data JSON - this could be called via HTTP GET
+	       
+      let video = document.getElementById('arvideo');  
+      var toggleSound = document.body.addEventListener('touchstart', function(){
+        if(video.muted === true){
+          video.muted=false;
+        } else if(video.muted === false){
+          video.muted=true;
+        }
+        if(video.play === true){
+          video.play=false;
+        } else if(video.play === false){
+          video.play=true;
+        }
+      });  
+	            
+	// data JSON - this could be called via HTTP GET
         var markerArray = [
             {
               id: '1',
