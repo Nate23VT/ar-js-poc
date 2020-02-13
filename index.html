@@ -10,28 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script>
 
-		//get ID querystring - default to 1 if none
+	//get ID querystring - default to 1 if none
       var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
 
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.5";
-
-	       
-      let video = document.getElementById('arvideo');  
-      var toggleSound = document.body.addEventListener('touchstart', function(){
-        if(video.muted === true){
-          video.muted=false;
-        } else if(video.muted === false){
-          video.muted=true;
-        }
-        if(video.play === true){
-          video.play=false;
-        } else if(video.play === false){
-          video.play=true;
-        }
-      });  
+        $scope.version = "v2.6";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
