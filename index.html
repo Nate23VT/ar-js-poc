@@ -13,7 +13,6 @@
 	//get ID querystring - default to 1 if none
       var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
 	var userDevice = getMobileOperatingSystem();
-	    alert(userDevice);
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
