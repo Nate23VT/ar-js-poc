@@ -17,7 +17,7 @@
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.7";
+        $scope.version = "v2.8";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
@@ -67,11 +67,10 @@
           }
         }
       });
-	    
+	    var video, toggleSound;
 	    if (userDevice == "iOS") {
-		   let video = document.getElementById('arvideo');  
-	//      video.muted=false;
-	      var toggleSound = document.body.addEventListener('touchstart', function(){
+		video = document.getElementById('arvideo');  
+	      toggleSound = document.body.addEventListener('touchstart', function(){
 		if(video.muted === true){
 		  video.muted=false;
 		} else if(video.muted === false){
