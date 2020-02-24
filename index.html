@@ -16,7 +16,7 @@
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.12";
+        $scope.version = "v2.13";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
@@ -155,10 +155,8 @@
 		<!-- 3D Marker -->
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' ng-if="marker.type == '3D'">
 			
-            <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>
-                <a-entity scale='0.5 0.5 0.5' position="0 0.5 0">					
-				<a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
-			</a-entity> 
+            <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>					
+			<a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
 		</a-marker>  			
             
             <a-entity camera></a-entity>
