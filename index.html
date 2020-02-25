@@ -81,7 +81,7 @@
       var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.19";
+        $scope.version = "v2.20";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
@@ -127,17 +127,19 @@
 		video = document.getElementById('arvideo');  
 	     arscene = document.querySelector('#arscene'); 
         
-	      toggleSound = arscene.addEventListener('touchstart', function(){
+	      arscene.addEventListener('touchstart', function(){
 		if(video.muted === true){
 		  video.muted=false;
 		} else if(video.muted === false){
 		  video.muted=true;
 		}
+		      /*
 		if(video.play === true){
 		  video.play=false;
 		} else if(video.play === false){
 		  video.play=true;
 		}
+		*/
 	      });  
 	    //}
 	  
