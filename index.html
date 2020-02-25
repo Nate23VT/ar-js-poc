@@ -10,52 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script>
 	
-	//get ID querystring - default to 1 if none
-      var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
-	var userDevice = getMobileOperatingSystem();
-      var ngApp = angular.module('ngApp', []);
-	  
-      ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.16";
-	            
-	// data JSON - this could be called via HTTP GET
-        var markerArray = [
-            {
-              id: '1',
-              title: 'Movie Trailer',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'video',
-              content: 'assets/sampleVideo.mp4'
-            },
-            {
-              id: '2',
-              title: 'Earth',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'video',
-              content: 'assets/earth.mp4'
-            },
-			{
-              id: '3',
-              title: 'Kirkland\'s Artwork',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'image',
-              content: 'assets/floral-image.png'
-            },
-			{
-              id: '4',
-              title: '3D box',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: '3D',
-              content: ''
-            }
-          ];
-
-          $scope.marker = _.findWhere(markerArray, {id: markerID});
-      });
+	
 
       AFRAME.registerComponent('vidhandler', {
         init: function () {
@@ -120,6 +75,53 @@
     </body>
 	
     <script>
+	    //get ID querystring - default to 1 if none
+      var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
+	var userDevice = getMobileOperatingSystem();
+      var ngApp = angular.module('ngApp', []);
+	  
+      ngApp.controller('ngController', function ngController($scope) {
+        $scope.version = "v2.17";
+	            
+	// data JSON - this could be called via HTTP GET
+        var markerArray = [
+            {
+              id: '1',
+              title: 'Movie Trailer',
+              markerPattern: 'assets/pattern-frame.patt',
+              markerImg: 'assets/pattern-frame.png',
+              type: 'video',
+              content: 'assets/sampleVideo.mp4'
+            },
+            {
+              id: '2',
+              title: 'Earth',
+              markerPattern: 'assets/pattern-frame.patt',
+              markerImg: 'assets/pattern-frame.png',
+              type: 'video',
+              content: 'assets/earth.mp4'
+            },
+			{
+              id: '3',
+              title: 'Kirkland\'s Artwork',
+              markerPattern: 'assets/pattern-frame.patt',
+              markerImg: 'assets/pattern-frame.png',
+              type: 'image',
+              content: 'assets/floral-image.png'
+            },
+			{
+              id: '4',
+              title: '3D box',
+              markerPattern: 'assets/pattern-frame.patt',
+              markerImg: 'assets/pattern-frame.png',
+              type: '3D',
+              content: ''
+            }
+          ];
+
+          $scope.marker = _.findWhere(markerArray, {id: markerID});
+      });
+	    
 	    var video, toggleSound;
 	    if (userDevice == "iOS") {
 		video = document.getElementById('arvideo');  
