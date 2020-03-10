@@ -32,15 +32,17 @@
 	</script>
 	
 	<body style='margin : 0px; overflow: hidden;' ng-controller="ngController">
-        <div style="position:fixed;left:1px;top:1px">{{version}} - {{marker.title}}</div>
-			
+        <div style="position:fixed;left:1px;top:1px">{{version}} - {{marker.title}}</div>			
 		<!-- Video Marker -->
         <a-scene id="arscene" embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' ng-if="marker.type == 'video'">
 
 			<!-- Video Asset -->
             <a-assets>
-                <video id="arvideo" autoplay loop="true" muted="true" src="{{marker.content}}" poster="assets/thumbnail_play2.jpg"></video>
-				<img id="arimage" width="320" height="176" src="assets/thumbnail_play5.jpg">
+              <video id="arvideo" width="320" height="176" controls="controls" preload muted="true" loop="true" src="assets/sampleVideo.mp4" 
+              poster="assets/thumbnail_play2.jpg"></video>
+
+              <img id="arimage" width="320" height="176" src="assets/thumbnail_play5.jpg">
+
             </a-assets>
             
             <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>
@@ -84,7 +86,7 @@
 		var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.23";
+        $scope.version = "v2.24";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
