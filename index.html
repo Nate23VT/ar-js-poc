@@ -80,7 +80,7 @@
 		var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.31";
+        $scope.version = "v2.32";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
@@ -121,22 +121,23 @@
           $scope.marker = _.findWhere(markerArray, {id: markerID});
       });
 	    
-	    var video, toggleSound;
-	    //if (userDevice == "iOS") {
-		video = document.getElementById('arvideo');  
 	    arscene = document.querySelector('#arscene'); 
         
-		arscene.addEventListener('touchstart', function(){
-			if(video.muted === true){
-				video.muted=false;
-				video.play();
-				video.setAttribute('visible', false);
-			} else if(video.muted === false){
-				video.muted=true;
-				video.pause();
-				video.setAttribute('visible', true);
+		arscene.addEventListener('touchstart', touchStartHandler, false);  
+		
+			      
+		function touchStartHandler(event){
+			if(document.querySelector('#arvideo').muted == true){
+				document.querySelector('#arvideo').muted=false;
+				document.querySelector('#arvideo').play();
+				document.querySelector('#aimage').setAttribute('visible', false);
+			} else if(document.querySelector('#arvideo').muted == false){
+				document.querySelector('#arvideo').muted=true;
+				document.querySelector('#arvideo').pause();
+				document.querySelector('#aimage').setAttribute('visible', true);
 			}
-		});  
+		}
+      
 		
 
 		function getParameterByName(name) {
