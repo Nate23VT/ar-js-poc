@@ -3,15 +3,13 @@
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     </head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <script src="js/underscore.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script>
-	
-	
-
+  
+	<script>
       AFRAME.registerComponent('vidhandler', {
         init: function () {
           this.toggle = false;
@@ -21,15 +19,14 @@
           if(document.querySelector("#arvideomarker").object3D.visible == true){
             if(!this.toggle){
               this.toggle = true;
-              document.querySelector("#arvideo").play();
             }
           } else {
             this.toggle = false;
-            document.querySelector("#arvideo").pause();
           }
         }
       });
 	</script>
+	
 	
 	<body style='margin : 0px; overflow: hidden;' ng-controller="ngController">
         <div style="position:fixed;left:1px;top:1px">{{version}} - {{marker.title}}</div>			
@@ -83,7 +80,7 @@
 		var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.29";
+        $scope.version = "v2.30";
 	            
 	// data JSON - this could be called via HTTP GET
         var markerArray = [
