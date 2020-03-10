@@ -76,95 +76,75 @@
     <script>
 	    //get ID querystring - default to 1 if none
 		var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
-		var userDevice = getMobileOperatingSystem();
 		var ngApp = angular.module('ngApp', []);
 	  
-      ngApp.controller('ngController', function ngController($scope) {
-        $scope.version = "v2.32";
-	            
-	// data JSON - this could be called via HTTP GET
-        var markerArray = [
-            {
-              id: '1',
-              title: 'Movie Trailer',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'video',
-              content: 'assets/sampleVideo.mp4'
-            },
-            {
-              id: '2',
-              title: 'Earth',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'video',
-              content: 'assets/earth.mp4'
-            },
-			{
-              id: '3',
-              title: 'Kirkland\'s Artwork',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: 'image',
-              content: 'assets/floral-image.png'
-            },
-			{
-              id: '4',
-              title: '3D box',
-              markerPattern: 'assets/pattern-frame.patt',
-              markerImg: 'assets/pattern-frame.png',
-              type: '3D',
-              content: ''
-            }
-          ];
+		ngApp.controller('ngController', function ngController($scope) {
+			$scope.version = "v2.33";
 
-          $scope.marker = _.findWhere(markerArray, {id: markerID});
-      });
-	    
-	    arscene = document.querySelector('#arscene'); 
-        
-		arscene.addEventListener('touchstart', touchStartHandler, false);  
-		
-			      
-		function touchStartHandler(event){
-			if(document.querySelector('#arvideo').muted == true){
-				document.querySelector('#arvideo').muted=false;
-				document.querySelector('#arvideo').play();
-				document.querySelector('#aimage').setAttribute('visible', false);
-			} else if(document.querySelector('#arvideo').muted == false){
-				document.querySelector('#arvideo').muted=true;
-				document.querySelector('#arvideo').pause();
-				document.querySelector('#aimage').setAttribute('visible', true);
-			}
-		}
-      
-		
+			// data JSON - this could be called via HTTP GET
+			var markerArray = [
+				{
+					id: '1',
+					title: 'Movie Trailer',
+					markerPattern: 'assets/pattern-frame.patt',
+					markerImg: 'assets/pattern-frame.png',
+					type: 'video',
+					content: 'assets/sampleVideo.mp4'
+				},
+				{
+					id: '2',
+					title: 'Earth',
+					markerPattern: 'assets/pattern-frame.patt',
+					markerImg: 'assets/pattern-frame.png',
+					type: 'video',
+					content: 'assets/earth.mp4'
+				},
+				{
+					id: '3',
+					title: 'Kirkland\'s Artwork',
+					markerPattern: 'assets/pattern-frame.patt',
+					markerImg: 'assets/pattern-frame.png',
+					type: 'image',
+					content: 'assets/floral-image.png'
+				},
+				{
+					id: '4',
+					title: '3D box',
+					markerPattern: 'assets/pattern-frame.patt',
+					markerImg: 'assets/pattern-frame.png',
+					type: '3D',
+					content: ''
+				}
+			];
+
+			$scope.marker = _.findWhere(markerArray, {id: markerID});
+		});
+	  
+	    $scope.$on('$viewContentLoaded', function(){
+			console.log('ng loaded);
+			 var video, toggleSound;
+			//if (userDevice == "iOS") {
+			video = document.getElementById('arvideo');  
+			arscene = document.querySelector('#arscene'); 
+
+			arscene.addEventListener('touchstart', function(){
+				if(video.muted === true){
+					video.muted=false;
+					video.play();
+					video.setAttribute('visible', false);
+				} else if(video.muted === false){
+					video.muted=true;
+					video.pause();
+					video.setAttribute('visible', true);
+				}
+			});  
+		  });	   
 
 		function getParameterByName(name) {
 			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 			  results = regex.exec(location.search);
 			return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-		}
-	
-	    function getMobileOperatingSystem() {
-			var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-			  // Windows Phone must come first because its UA also contains "Android"
-			if (/windows phone/i.test(userAgent)) {
-			return "Windows Phone";
-			}
-
-			if (/android/i.test(userAgent)) {
-			return "Android";
-			}
-
-			// iOS detection from: http://stackoverflow.com/a/9039885/177710
-			if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-			return "iOS";
-			}
-
-			return "unknown";
 		}
     </script>
 </html>
