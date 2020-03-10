@@ -60,7 +60,7 @@
 		var ngApp = angular.module('ngApp', []);
 	  
 		ngApp.controller('ngController', function ngController($scope) {
-			$scope.version = "v2.35";
+			$scope.version = "v2.36";
 
 			// data JSON - this could be called via HTTP GET
 			var markerArray = [
@@ -100,8 +100,8 @@
 
 			$scope.marker = _.findWhere(markerArray, {id: markerID});
 		});
-	  
-		angular.element(function () {
+		
+		setTimeout(function(){  
 			console.log('ng loaded);
 			AFRAME.registerComponent('vidhandler', {
 				init: function () {
@@ -134,7 +134,7 @@
 					video.setAttribute('visible', true);
 				}
 			});  
-		});	   
+		}, 3000);   
 
 		function getParameterByName(name) {
 			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
