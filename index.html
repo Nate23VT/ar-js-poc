@@ -30,28 +30,32 @@
         }
       });
 	</script>
+	
 	<body style='margin : 0px; overflow: hidden;' ng-controller="ngController">
         <div style="position:fixed;left:1px;top:1px">{{version}} - {{marker.title}}</div>
         <!-- Video Asset -->
             <a-assets>
-                <video id="arvideo" autoplay loop="true" muted="true" src="{{marker.content}}"></video>
+                <video id="arvideo" autoplay loop="true" muted="true" src="{{marker.content}}" poster="assets/thumbnail_play2.jpg"></video>
             </a-assets>
 			
 			
 		<!-- Video Marker -->
-        <a-scene id="arscene" embedded arjs='sourceType: webcam; debugUIEnabled: false;' ng-if="marker.type == 'video'">
+        <a-scene id="arscene" embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' ng-if="marker.type == 'video'">
 
 			
             
             <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>
-                <a-video vidhandler src="#arvideo" rotation="90 0 180" position="0 0 0" scale="1.77 1 1" play="true"></a-video>				
+                <a-video vidhandler src="#arvideo" rotation="90 0 180" position="0 0 0" scale="1.77 1 1"></a-video>	
+				<a-entity id="aimage" >
+                  <a-image src="#arimage" rotation="90 0 180" position="0 0 0" scale="1.77 1 1"></a-image>
+                </a-entity>				
 			</a-marker>  		
             
             <a-entity camera></a-entity>
         </a-scene>
 		
 		<!-- Image Marker -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' ng-if="marker.type == 'image'">
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' ng-if="marker.type == 'image'">
 			
             <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>
                 <a-entity scale='0.5 0.5 0.5' position="0 0.5 0">
@@ -63,7 +67,7 @@
         </a-scene>	
 		
 		<!-- 3D Marker -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' ng-if="marker.type == '3D'">
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' ng-if="marker.type == '3D'">
 			
             <a-marker id="arvideomarker" type='pattern' url='{{marker.markerPattern}}'>					
 			<a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
@@ -76,9 +80,9 @@
 	
     <script>
 	    //get ID querystring - default to 1 if none
-      var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
-	var userDevice = getMobileOperatingSystem();
-      var ngApp = angular.module('ngApp', []);
+		var markerID = getParameterByName('ID') ? getParameterByName('ID') : 1;
+		var userDevice = getMobileOperatingSystem();
+		var ngApp = angular.module('ngApp', []);
 	  
       ngApp.controller('ngController', function ngController($scope) {
         $scope.version = "v2.20";
@@ -125,50 +129,46 @@
 	    var video, toggleSound;
 	    //if (userDevice == "iOS") {
 		video = document.getElementById('arvideo');  
-	     arscene = document.querySelector('#arscene'); 
+	    arscene = document.querySelector('#arscene'); 
         
-	      arscene.addEventListener('touchstart', function(){
-		if(video.muted === true){
-		  video.muted=false;
-		} else if(video.muted === false){
-		  video.muted=true;
-		}
-		      /*
-		if(video.play === true){
-		  video.play=false;
-		} else if(video.play === false){
-		  video.play=true;
-		}
-		*/
-	      });  
-	    //}
-	  
+		arscene.addEventListener('touchstart', function(){
+			if(video.muted === true){
+				video.muted=false;
+				video.play();
+				video.setAttribute('visible', false);
+			} else if(video.muted === false){
+				video.muted=true;
+				video.pause();
+				video.setAttribute('visible', true);
+			}
+		});  
+		
 
-      function getParameterByName(name) {
-          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-              results = regex.exec(location.search);
-          return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-      }
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			  results = regex.exec(location.search);
+			return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
 	
 	    function getMobileOperatingSystem() {
-	  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+			var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-	      // Windows Phone must come first because its UA also contains "Android"
-	    if (/windows phone/i.test(userAgent)) {
-		return "Windows Phone";
-	    }
+			  // Windows Phone must come first because its UA also contains "Android"
+			if (/windows phone/i.test(userAgent)) {
+			return "Windows Phone";
+			}
 
-	    if (/android/i.test(userAgent)) {
-		return "Android";
-	    }
+			if (/android/i.test(userAgent)) {
+			return "Android";
+			}
 
-	    // iOS detection from: http://stackoverflow.com/a/9039885/177710
-	    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-		return "iOS";
-	    }
+			// iOS detection from: http://stackoverflow.com/a/9039885/177710
+			if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+			return "iOS";
+			}
 
-	    return "unknown";
-	}
+			return "unknown";
+		}
     </script>
 </html>
