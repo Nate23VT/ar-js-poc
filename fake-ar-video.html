@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fake AR Video Example</title>
+  <style>
+    #container {
+        margin: 0px auto;
+        width: 100%;
+        height: 100%;
+    }
+    #cameraElement {
+        width: 100%;
+        height: 100%;
+        z-index: -100 !important;
+    }
+    #vidContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 20px auto;
+        width: 75%;
+        height: 75%;
+        z-index:100 !important;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <video autoplay="true" id="cameraElement">
+        
+        </video>
+    </div>
+    <div id="vidContainer">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    </div>
+    <script>
+        var video = document.querySelector("#cameraElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+</script>
+</body>
+</html>
